@@ -1,7 +1,7 @@
 From 48dc8a8bdba90d7debd4d9f92721749a575302ce Mon Sep 17 00:00:00 2001
 From: Garrett <g@floft.net>
 Date: Wed, 14 Aug 2013 15:12:15 -0700
-Subject: [PATCH] Applied smaller patch
+Subject: [PATCH] v4l2 Updates
 
 ---
  Makefile                                           |   10 ++++----
