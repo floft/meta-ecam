@@ -2,7 +2,7 @@ DESCRIPTION = "DVSDK TI DSP drivers"
 HOMEPAGE = "http://www.ti.com/tool/linuxdvsdk-dm37x"
 SECTION = "drivers"
 LICENSE = "TI"
-DEPENDS = "virtual/kernel"
+DEPENDS = "virtual/kernel gst-ffmpeg gst-plugins-bad gst-plugins-good gst-plugins-ugly"
 PR = "r1"
 SRC_URI = "file://0001-v4l2-Updates.patch"
 LIC_FILES_CHKSUM = "file://gstreamer-ti_svnr919/COPYING;md5=c8a292be1d17ba07ecbf7b49049cbf22"
@@ -19,13 +19,16 @@ S = "${DVSDK_INSTALL_DIR}/"
 # * You must run `bitbake -f -c compile virtual/kernel' if source doesn't exist.
 # * Check to verify that the .../linux-gumstix/3.2-r2 path is correct for
 #   kernel source code.
-# * If running this multiple times, make sure to run `bitbake -c clean dvsdk' and
-#   in the DVSDK directory, something like `git add -A; git reset --hard HEAD' to
-#   set it back to the original files if you set it up in git or reinstall DVSDK.
+# * If running this multiple times, you might need to `bitbake -c clean dvsdk'
+#   and in the DVSDK directory, something like `git add -A; git reset --hard
+#   HEAD' to set it back to the original files if you set it up in git or
+#   reinstall DVSDK.
 
-do_compile() {
-    # Couldn't put this in the patch since the directorys will differ and other
-    # makefiles include this file
+do_configure() {
+    # Couldn't put this in the patch since the directories will differ and
+    # other makefiles include this file. If you need to change the kernel path
+    # and have already compiled DVSDK, just move this to do_compile() so you
+    # don't have to do a `bitbake -c clean dvsdk'
     sed -ri "
         s#^(DVSDK_INSTALL_DIR=).*\$#\1${DVSDK_INSTALL_DIR}#
         s#^(EXEC_DIR=).*\$#\1${D}#
@@ -42,7 +45,9 @@ do_compile() {
     # reason only this one is needed. Probably since it's not in a .../package/
     # directory.
     mkdir -p "${DVSDK_INSTALL_DIR}/c6accel_1_01_00_07/soc/c6accelw/lib"
-    
+}
+
+do_compile() {
     # -Wl,-O1 apparently isn't implemented with this embedded compiler.
     oe_runmake all LDFLAGS="${LDFLAGS//-Wl,-*/}" \
         BUILD_LDFLAGS="${BUILD_LDFLAGS//-Wl,-*/}" \

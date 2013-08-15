@@ -68,3 +68,6 @@ BB_DISKMON_DIRS = "\
 
 
 CONF_VERSION = "1"
+
+# Needed for gst-ffmpeg
+LICENSE_FLAGS_WHITELIST += "commercial"
