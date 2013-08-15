@@ -27,7 +27,7 @@ MACHINE ?= "overo"
 # Uncomment the following PREFERRED_VERSION line only if there is some reason
 # you need to run the 3.2 kernel on the Overo instead of the default 3.5.
 # One reason would be if you are writing a custom McBSP kernel driver. 
-PREFERRED_VERSION_linux-ecam_overo = "3.2"
+PREFERRED_VERSION_linux-gumstix_overo = "3.2"
 
 # The default TMPDIR is */build/tmp. You can override it here.
 # TMPDIR = "/oe18/tmp-poky-dylan-build"

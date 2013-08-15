@@ -7,7 +7,7 @@ require pansenti-console-image.bb
 PR = "1"
 
 IMAGE_INSTALL += " \
- dvsdk
+ dvsdk \
  "
 
 export IMAGE_BASENAME = "ecam-console-image"

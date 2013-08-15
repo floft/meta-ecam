@@ -5,7 +5,6 @@ LICENSE = "TI"
 DEPENDS = "virtual/kernel"
 PR = "r1"
 SRC_URI = "file://0001-v4l2-Updates.patch"
-PROVIDES = "dvsdk"
 LIC_FILES_CHKSUM = "file://gstreamer-ti_svnr919/COPYING;md5=c8a292be1d17ba07ecbf7b49049cbf22"
 
 DVSDK_INSTALL_DIR = "/usr/local/dvsdk"
@@ -30,7 +29,7 @@ do_compile() {
     sed -ri "
         s#^(DVSDK_INSTALL_DIR=).*\$#\1${DVSDK_INSTALL_DIR}#
         s#^(EXEC_DIR=).*\$#\1${D}#
-        s#^(LINUXKERNEL_INSTALL_DIR=).*\$#\1${TMPDIR}/work/overo-poky-linux-gnueabi/linux-ecam/3.2-r1/git#" \
+        s#^(LINUXKERNEL_INSTALL_DIR=).*\$#\1${TMPDIR}/work/overo-poky-linux-gnueabi/linux-gumstix/3.2-r2/git#" \
         "${DVSDK_INSTALL_DIR}/Rules.make"
 
     # If these were generated on somebody else's system, the paths will be
@@ -64,3 +63,5 @@ INSANE_SKIP_${PN} = "ldflags"
 # This will fail to build if we have more than one job, unfortunately.
 PARALLEL_MAKE = ""
 BBCLASSEXTEND = "native"
+
+RPROVIDES_${PN} = "dvsdk"
