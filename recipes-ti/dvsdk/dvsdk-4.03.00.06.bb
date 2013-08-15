@@ -17,10 +17,12 @@ S = "${DVSDK_INSTALL_DIR}/"
 #   probably only install on Ubuntu 10.04 32-bit.
 # * Then, you need to `sudo chown -R user:user /usr/local/dvsdk' before
 #   building.
+# * You must run `bitbake -f -c compile virtual/kernel' if source doesn't exist.
+# * Check to verify that the .../linux-gumstix/3.2-r2 path is correct for
+#   kernel source code.
 # * If running this multiple times, make sure to run `bitbake -c clean dvsdk' and
 #   in the DVSDK directory, something like `git add -A; git reset --hard HEAD' to
 #   set it back to the original files if you set it up in git or reinstall DVSDK.
-# * You must run `bitbake -f -c compile virtual/kernel' if source doesn't exist.
 
 do_compile() {
     # Couldn't put this in the patch since the directorys will differ and other
@@ -28,7 +30,7 @@ do_compile() {
     sed -ri "
         s#^(DVSDK_INSTALL_DIR=).*\$#\1${DVSDK_INSTALL_DIR}#
         s#^(EXEC_DIR=).*\$#\1${D}#
-        s#^(LINUXKERNEL_INSTALL_DIR=).*\$#\1${TMPDIR}/work/overo-poky-linux-gnueabi/linux-gumstix/3.2-r1/git#" \
+        s#^(LINUXKERNEL_INSTALL_DIR=).*\$#\1${TMPDIR}/work/overo-poky-linux-gnueabi/linux-ecam/3.2-r1/git#" \
         "${DVSDK_INSTALL_DIR}/Rules.make"
 
     # If these were generated on somebody else's system, the paths will be
