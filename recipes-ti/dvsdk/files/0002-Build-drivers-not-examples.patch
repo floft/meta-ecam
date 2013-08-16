@@ -1,0 +1,52 @@
+From 2aa88a7a5946535c53b32db1924ded6cbff87501 Mon Sep 17 00:00:00 2001
+From: Garrett <g@floft.net>
+Date: Fri, 16 Aug 2013 08:32:47 -0700
+Subject: [PATCH 2/3] Build drivers not examples
+
+---
+ Makefile |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 3774211..2f1f790 100755
+--- a/Makefile
++++ b/Makefile
+@@ -21,22 +21,22 @@ default: all
+ #==============================================================================
+ # Build target build necessary components to enable all other build targets.
+ #==============================================================================
+-components: linux cmem sdma dsplink lpm c6run c6accel codecs dmai  
++components: cmem sdma dsplink lpm c6run c6accel codecs dmai  
+ 
+ #==============================================================================
+ # Clean up the targets built by 'make all'.
+ #==============================================================================
+-clean:	linux_clean dsplink_clean cmem_clean lpm_clean sdma_clean c6run_clean codecs_clean dmai_clean c6accel_clean ceexamples_clean u-boot_clean  demos_clean psp_examples_clean opengldemos_clean xload_clean dvtb_clean
++clean:	dsplink_clean cmem_clean lpm_clean sdma_clean c6run_clean codecs_clean dmai_clean c6accel_clean
+ 
+ #==============================================================================
+ # Build everything rebuildable.
+ #==============================================================================
+-all: components u-boot ceexamples demos psp_examples opengldemos xload c6run_examples matrix gstreamer_ti dvtb
++all: components gstreamer_ti
+ 
+ #==============================================================================
+ # Install everything
+ #==============================================================================
+-install: linux_install cmem_install sdma_install opengldemos_install ceexamples_install codecs_install lpm_install dsplink_install u-boot_install dmai_install demos_install  psp_examples_install c6accel_install xload_install c6run_install matrix_install gstreamer_ti_install loadmodule_install dvtb_install
++install: cmem_install sdma_install codecs_install lpm_install dsplink_install dmai_install c6accel_install c6run_install gstreamer_ti_install loadmodule_install
+ 
+ #==============================================================================
+ # A help message target.
+@@ -806,7 +806,7 @@ c6run:
+ 	LPM_INSTALL_DIR="$(LPM_INSTALL_DIR)" \
+ 	ARM_TOOLCHAIN_PATH="$(CSTOOL_DIR)" \
+ 	ARM_TOOLCHAIN_PREFIX="arm-arago-linux-gnueabi-" \
+-	DSP_REGION_BASE_ADDR=0x83700000 \
++	DSP_REGION_BASE_ADDR=0x90000000 \
+ 	DSP_REGION_CMEM_SIZE=0x02200000 \
+ 	DSP_REGION_CODE_SIZE=0x02700000 \
+ 	dm3730_config
+-- 
+1.7.0.4
+

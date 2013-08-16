@@ -4,11 +4,19 @@ SECTION = "drivers"
 LICENSE = "TI"
 DEPENDS = "virtual/kernel gst-ffmpeg gst-plugins-bad gst-plugins-good gst-plugins-ugly"
 PR = "r1"
-SRC_URI = "file://0001-v4l2-Updates.patch"
+SRC_URI = "0001-Cmemk-Memory-Location.patch \
+           0002-Build-drivers-not-examples.patch \
+           0003-v4l2-define-changes.patch"
 LIC_FILES_CHKSUM = "file://gstreamer-ti_svnr919/COPYING;md5=c8a292be1d17ba07ecbf7b49049cbf22"
 
 DVSDK_INSTALL_DIR = "/usr/local/dvsdk"
 S = "${DVSDK_INSTALL_DIR}/"
+
+inherit update-rc.d
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME_${PN} = "loadmodule-rc"
+# Determine position number with: ls /etc/rc*.d/* | sed 's#.*/##g' | sort -u
+INITSCRIPT_PARAMS_${PN} = "defaults 11"
 
 # NOTES:
 # * You must download DVSDK from the website above and install somewhere such

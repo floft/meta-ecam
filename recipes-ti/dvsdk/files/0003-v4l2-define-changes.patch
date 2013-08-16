@@ -1,54 +1,12 @@
-From 48dc8a8bdba90d7debd4d9f92721749a575302ce Mon Sep 17 00:00:00 2001
+From 5cb98ab35965b34ac0061043cf5776cf9271fed9 Mon Sep 17 00:00:00 2001
 From: Garrett <g@floft.net>
-Date: Wed, 14 Aug 2013 15:12:15 -0700
-Subject: [PATCH] v4l2 Updates
+Date: Fri, 16 Aug 2013 08:33:41 -0700
+Subject: [PATCH 3/3] v4l2 define changes
 
 ---
- Makefile                                           |   10 ++++----
- Rules.make                                         |    2 +-
  .../packages/ti/sdo/dmai/linux/omap3530/Capture.c  |   26 ++++++++++----------
- 3 files changed, 19 insertions(+), 19 deletions(-)
+ 1 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 3774211..2f1f790 100755
---- a/Makefile
-+++ b/Makefile
-@@ -21,22 +21,22 @@ default: all
- #==============================================================================
- # Build target build necessary components to enable all other build targets.
- #==============================================================================
--components: linux cmem sdma dsplink lpm c6run c6accel codecs dmai  
-+components: cmem sdma dsplink lpm c6run c6accel codecs dmai  
- 
- #==============================================================================
- # Clean up the targets built by 'make all'.
- #==============================================================================
--clean:	linux_clean dsplink_clean cmem_clean lpm_clean sdma_clean c6run_clean codecs_clean dmai_clean c6accel_clean ceexamples_clean u-boot_clean  demos_clean psp_examples_clean opengldemos_clean xload_clean dvtb_clean
-+clean:	dsplink_clean cmem_clean lpm_clean sdma_clean c6run_clean codecs_clean dmai_clean c6accel_clean
- 
- #==============================================================================
- # Build everything rebuildable.
- #==============================================================================
--all: components u-boot ceexamples demos psp_examples opengldemos xload c6run_examples matrix gstreamer_ti dvtb
-+all: components gstreamer_ti
- 
- #==============================================================================
- # Install everything
- #==============================================================================
--install: linux_install cmem_install sdma_install opengldemos_install ceexamples_install codecs_install lpm_install dsplink_install u-boot_install dmai_install demos_install  psp_examples_install c6accel_install xload_install c6run_install matrix_install gstreamer_ti_install loadmodule_install dvtb_install
-+install: cmem_install sdma_install codecs_install lpm_install dsplink_install dmai_install c6accel_install c6run_install gstreamer_ti_install loadmodule_install
- 
- #==============================================================================
- # A help message target.
-@@ -806,7 +806,7 @@ c6run:
- 	LPM_INSTALL_DIR="$(LPM_INSTALL_DIR)" \
- 	ARM_TOOLCHAIN_PATH="$(CSTOOL_DIR)" \
- 	ARM_TOOLCHAIN_PREFIX="arm-arago-linux-gnueabi-" \
--	DSP_REGION_BASE_ADDR=0x83700000 \
-+	DSP_REGION_BASE_ADDR=0x90000000 \
- 	DSP_REGION_CMEM_SIZE=0x02200000 \
- 	DSP_REGION_CODE_SIZE=0x02700000 \
- 	dm3730_config
 diff --git a/dmai_2_20_00_15/packages/ti/sdo/dmai/linux/omap3530/Capture.c b/dmai_2_20_00_15/packages/ti/sdo/dmai/linux/omap3530/Capture.c
 index d41575d..12361d3 100644
 --- a/dmai_2_20_00_15/packages/ti/sdo/dmai/linux/omap3530/Capture.c

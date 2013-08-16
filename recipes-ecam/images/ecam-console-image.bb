@@ -8,6 +8,7 @@ PR = "1"
 
 IMAGE_INSTALL += " \
  dvsdk \
+ gst-meta-debug \
  "
 
 export IMAGE_BASENAME = "ecam-console-image"
