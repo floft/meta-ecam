@@ -20,7 +20,7 @@ INITSCRIPT_PARAMS_${PN} = "defaults"
 # NOTES:
 # * You must download DVSDK from the website above and install somewhere such
 #   as in /usr/local/dvsdk and change DVSDK_INSTALL_DIR accordingly. It will
-#   only install on Ubuntu 10.04 32-bit unless you use --force-host.
+#   only install on Ubuntu 10.04 32-bit unless you use --forcehost.
 # * Then, you need to `sudo chown -R user:user /usr/local/dvsdk' before
 #   building.
 # * You must run `bitbake -f -c compile virtual/kernel' if source doesn't exist.
