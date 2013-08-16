@@ -15,8 +15,7 @@ S = "${DVSDK_INSTALL_DIR}/"
 inherit update-rc.d
 INITSCRIPT_PACKAGES = "${PN}"
 INITSCRIPT_NAME_${PN} = "loadmodule-rc"
-# Determine position number with: ls /etc/rc*.d/* | sed 's#.*/##g' | sort -u
-INITSCRIPT_PARAMS_${PN} = "defaults 11"
+INITSCRIPT_PARAMS_${PN} = "defaults"
 
 # NOTES:
 # * You must download DVSDK from the website above and install somewhere such
@@ -62,11 +61,11 @@ do_compile() {
         TARGET_LDFLAGS="${TARGET_LDFLAGS//-Wl,-*/}"
 }
 
-do_install () {
+do_install() {
     oe_runmake install
 }
 
-FILES_${PN} = "/usr/lib/gstreamer-0.10/* /usr/share/ti/* /usr/share/ti/c6run-apps/* /usr/share/ti/c6run-apps/*/*/* /usr/share/ti/ti-codecs-server/* /usr/share/ti/c6accel-apps/* /usr/share/ti/c6accel-apps/test_files/* /usr/share/ti/ti-dmai-apps/* /usr/share/ti/ti-dsplink-examples/* /lib/modules/3.2.0-svn430/kernel/drivers/dsp/* /etc/init.d/* /etc/rc3.d/*"
+FILES_${PN} = "/usr/lib/gstreamer-0.10/* /usr/share/ti/* /usr/share/ti/c6run-apps/* /usr/share/ti/c6run-apps/*/*/* /usr/share/ti/ti-codecs-server/* /usr/share/ti/c6accel-apps/* /usr/share/ti/c6accel-apps/test_files/* /usr/share/ti/ti-dmai-apps/* /usr/share/ti/ti-dsplink-examples/* /lib/modules/3.2.0-svn430/kernel/drivers/dsp/* /etc/init.d/* /etc/rc*.d/*"
 FILES_${PN}-dev = ""
 FILES_${PN}-dbg = "/usr/lib/gstreamer-0.10/.debug/* /usr/share/ti/c6run-apps/.debug /usr/share/ti/c6run-apps/.debug/* /usr/share/ti/c6accel-apps/.debug /usr/share/ti/c6accel-apps/.debug/* /usr/share/ti/ti-dmai-apps/.debug/* /usr/share/ti/ti-dsplink-examples/.debug/*"
 
@@ -77,4 +76,6 @@ INSANE_SKIP_${PN} = "ldflags"
 PARALLEL_MAKE = ""
 BBCLASSEXTEND = "native"
 
+# First for `bitbake dvsdk', second for including in the image file
+PROVIDES = "dvsdk"
 RPROVIDES_${PN} = "dvsdk"

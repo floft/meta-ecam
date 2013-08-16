@@ -3,6 +3,9 @@ From: Garrett <g@floft.net>
 Date: Fri, 16 Aug 2013 08:32:47 -0700
 Subject: [PATCH 2/3] Build drivers not examples
 
+Note that the hash is wrong now since I've changed the memory location at the
+bottom of this patch.
+
 ---
  Makefile |   10 +++++-----
  1 files changed, 5 insertions(+), 5 deletions(-)
@@ -43,7 +46,7 @@ index 3774211..2f1f790 100755
  	ARM_TOOLCHAIN_PATH="$(CSTOOL_DIR)" \
  	ARM_TOOLCHAIN_PREFIX="arm-arago-linux-gnueabi-" \
 -	DSP_REGION_BASE_ADDR=0x83700000 \
-+	DSP_REGION_BASE_ADDR=0x90000000 \
++	DSP_REGION_BASE_ADDR=0x83700000 \
  	DSP_REGION_CMEM_SIZE=0x02200000 \
  	DSP_REGION_CODE_SIZE=0x02700000 \
  	dm3730_config
