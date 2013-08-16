@@ -66,7 +66,8 @@ do_install() {
     
     # DVSDK puts this file here, and unless we remove it update-rc.d won't set
     # any additional symlinks
-    rm -f "${D}/etc/rc3.d/S99loadmodule-rc"
+    rm "${D}/etc/rc3.d/S99loadmodule-rc"
+    rmdir "${D}/etc/rc3.d"
 }
 
 FILES_${PN} = "/usr/lib/gstreamer-0.10/* /usr/share/ti/* /usr/share/ti/c6run-apps/* /usr/share/ti/c6run-apps/*/*/* /usr/share/ti/ti-codecs-server/* /usr/share/ti/c6accel-apps/* /usr/share/ti/c6accel-apps/test_files/* /usr/share/ti/ti-dmai-apps/* /usr/share/ti/ti-dsplink-examples/* /lib/modules/3.2.0-svn430/kernel/drivers/dsp/* /etc/init.d/* /etc/rc*.d/*"
