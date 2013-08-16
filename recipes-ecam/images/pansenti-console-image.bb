@@ -118,7 +118,7 @@ IMAGE_INSTALL += " \
  "
 
 set_local_timezone() {
-    ln -sf /usr/share/zoneinfo/EST5EDT ${IMAGE_ROOTFS}/etc/localtime
+    ln -sf /usr/share/zoneinfo/PST8PDT ${IMAGE_ROOTFS}/etc/localtime
 }
 
 #avahi_no_drop_root() {
