@@ -1,2 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-COMPATIBLE_MACHINE_overo = "overo"
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+
+PRINC := "${@int(PRINC) + 1}"
+

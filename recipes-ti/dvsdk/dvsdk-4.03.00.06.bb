@@ -4,9 +4,9 @@ SECTION = "drivers"
 LICENSE = "TI"
 DEPENDS = "virtual/kernel gst-ffmpeg gst-plugins-bad gst-plugins-good gst-plugins-ugly"
 PR = "r1"
-SRC_URI = "0001-Cmemk-Memory-Location.patch \
-           0002-Build-drivers-not-examples.patch \
-           0003-v4l2-define-changes.patch"
+SRC_URI = "file://0001-Cmemk-Memory-Location.patch \
+           file://0002-Build-drivers-not-examples.patch \
+           file://0003-v4l2-define-changes.patch"
 LIC_FILES_CHKSUM = "file://gstreamer-ti_svnr919/COPYING;md5=c8a292be1d17ba07ecbf7b49049cbf22"
 
 DVSDK_INSTALL_DIR = "/usr/local/dvsdk"
