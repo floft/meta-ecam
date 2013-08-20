@@ -16,5 +16,6 @@ BBLAYERS ?= " \
   ##COREBASE##/meta-openembedded/meta-multimedia \
   ##COREBASE##/meta-gumstix \
   ##COREBASE##/meta-gumstix-extras \
+  ##COREBASE##/meta-ti \
   ##COREBASE##/meta-ecam \
   "

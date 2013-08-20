@@ -258,4 +258,4 @@ LICENSE_FLAGS_WHITELIST += "commercial"
 # Ignore some files as outlined on:
 #   http://www.sleepyrobot.com/?p=210
 #
-#BBMASK ?= ".*/meta-ti/recipes-(misc|bsp/formfactor)/"
+BBMASK ?= ".*/meta-ti/recipes-(misc|bsp/formfactor)/"
