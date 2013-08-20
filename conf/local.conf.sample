@@ -20,8 +20,8 @@ IMAGE_FSTYPES_forcevariable = "tar.xz"
 # override the mix in the meta-gumstix/conf/machine configuration files
 MACHINE_FEATURES_forcevariable = "ext3 screen serial usbhost"
 
-BB_NUMBER_THREADS = "8"
-PARALLEL_MAKE = "-j 8"
+BB_NUMBER_THREADS = "4"
+PARALLEL_MAKE = "-j 4"
 
 MACHINE ?= "overo"
 # Uncomment the following PREFERRED_VERSION line only if there is some reason
