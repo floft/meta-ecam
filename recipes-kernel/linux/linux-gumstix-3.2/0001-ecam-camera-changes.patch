@@ -1,8 +1,14 @@
-From 89b21d683ea879918b1c9702a3d1b4d6bf3ec4dd Mon Sep 17 00:00:00 2001
+From b919b519cdd33255dc22e12798a1c5853a422ab5 Mon Sep 17 00:00:00 2001
 From: Garrett <g@floft.net>
 Date: Mon, 12 Aug 2013 13:51:31 -0700
 Subject: [PATCH] ecam camera changes
 
+The extraversion string is to make the vermagic of the precompiled camera
+driver insert. The CONFIG_VIDEO_OMAP3 define allows the driver to insert and
+detect the camera successfully. But, with that enabled and
+CONFIG_MEDIA_CONTROLLER disabled, we must delete isp_pad_buffer_type since
+subdev->entity isn't defined (convenient that the function isn't actually used
+anywhere). And then there's e-consystem's changes for I2C.
 ---
  Makefile                           |    2 +-
  arch/arm/mach-omap2/board-overo.c  |   20 +++++++++++++++++++-
