@@ -37,7 +37,7 @@ zip \
 "
 
 ECAM_INSTALL += " \
-gstreamer-ti
+gstreamer-ti \
 gst-meta-video \
 gst-meta-audio \
 gst-meta-debug \
