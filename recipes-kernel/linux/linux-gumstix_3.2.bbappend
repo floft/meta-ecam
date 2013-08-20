@@ -12,4 +12,3 @@ SRC_URI = "git://github.com/gumstix/linux.git;branch=omap-3.2;protocol=git \
            file://defconfig \
            file://libertas-async-fwload.patch \
           "
-
