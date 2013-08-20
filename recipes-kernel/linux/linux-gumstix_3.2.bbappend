@@ -8,8 +8,7 @@ BOOT_SPLASH = ""
 
 SRCREV = "${AUTOREV}"
 SRC_URI = "git://github.com/gumstix/linux.git;branch=omap-3.2;protocol=git \
-           file://camera-kernel-3.2.patch \
-           file://extraversion.patch \
+           file://0001-ecam-camera-changes.patch \
            file://defconfig \
            file://libertas-async-fwload.patch \
           "

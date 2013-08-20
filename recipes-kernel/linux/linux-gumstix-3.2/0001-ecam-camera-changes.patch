@@ -1,0 +1,93 @@
+From 89b21d683ea879918b1c9702a3d1b4d6bf3ec4dd Mon Sep 17 00:00:00 2001
+From: Garrett <g@floft.net>
+Date: Mon, 12 Aug 2013 13:51:31 -0700
+Subject: [PATCH] ecam camera changes
+
+---
+ Makefile                           |    2 +-
+ arch/arm/mach-omap2/board-overo.c  |   20 +++++++++++++++++++-
+ drivers/media/video/omap3isp/isp.h |   12 ------------
+ 3 files changed, 20 insertions(+), 14 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index adddd11..b4ee117 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 3
+ PATCHLEVEL = 2
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION = -svn430
+ NAME = Saber-toothed Squirrel
+ 
+ # *DOCUMENTATION*
+diff --git a/arch/arm/mach-omap2/board-overo.c b/arch/arm/mach-omap2/board-overo.c
+index f9fdb63..4eec383 100644
+--- a/arch/arm/mach-omap2/board-overo.c
++++ b/arch/arm/mach-omap2/board-overo.c
+@@ -62,6 +62,8 @@
+ #include "hsmmc.h"
+ #include "common-board-devices.h"
+ 
++#define CONFIG_VIDEO_OMAP3
++
+ #define OVERO_GPIO_BT_XGATE	15
+ #define OVERO_GPIO_W2W_NRESET	16
+ #define OVERO_GPIO_PENDOWN	114
+@@ -513,6 +515,22 @@ static struct twl4030_platform_data overo_twldata = {
+ 	.vmmc1		= &overo_vmmc1,
+ };
+ 
++#define LM3553_SLAVE_ADDRESS	0x53
++#define OV5640_I2C_ADDR		(0x78 >> 1)
++int overo_ov5640_platform_data;
++int lm3553_platform_data;
++
++static struct i2c_board_info __initdata omap3_i2c_boardinfo_3[] = {
++	{
++		I2C_BOARD_INFO("ov5640", OV5640_I2C_ADDR),
++		.platform_data = &overo_ov5640_platform_data,
++	},
++	{
++		I2C_BOARD_INFO("lm3553",LM3553_SLAVE_ADDRESS),
++		.platform_data = &lm3553_platform_data,
++	},
++};
++
+ static int __init overo_i2c_init(void)
+ {
+ 	u32 pdata_flags = 0;
+@@ -542,7 +560,7 @@ static int __init overo_i2c_init(void)
+ 
+ 	omap3_pmic_init("tps65950", &overo_twldata);
+ 	/* i2c2 pins are used for gpio */
+-	omap_register_i2c_bus(3, 400, NULL, 0);
++	omap_register_i2c_bus(3, 400, omap3_i2c_boardinfo_3, ARRAY_SIZE(omap3_i2c_boardinfo_3));
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/video/omap3isp/isp.h b/drivers/media/video/omap3isp/isp.h
+index 705946e..6642f18 100644
+--- a/drivers/media/video/omap3isp/isp.h
++++ b/drivers/media/video/omap3isp/isp.h
+@@ -342,16 +342,4 @@ void isp_reg_clr_set(struct isp_device *isp, enum isp_mem_resources mmio_range,
+ 	isp_reg_writel(isp, (v & ~clr_bits) | set_bits, mmio_range, reg);
+ }
+ 
+-static inline enum v4l2_buf_type
+-isp_pad_buffer_type(const struct v4l2_subdev *subdev, int pad)
+-{
+-	if (pad >= subdev->entity.num_pads)
+-		return 0;
+-
+-	if (subdev->entity.pads[pad].flags & MEDIA_PAD_FL_SINK)
+-		return V4L2_BUF_TYPE_VIDEO_OUTPUT;
+-	else
+-		return V4L2_BUF_TYPE_VIDEO_CAPTURE;
+-}
+-
+ #endif	/* OMAP3_ISP_CORE_H */
+-- 
+1.7.0.4
+
