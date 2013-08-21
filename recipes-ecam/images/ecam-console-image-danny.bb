@@ -89,6 +89,8 @@ ecam-driver \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-good \
+gst-plugins-good-video4linux2 \
+gst-plugins-good-video4linux2-dev \
 gst-meta-video \
 gst-meta-audio \
 gst-meta-debug \
