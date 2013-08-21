@@ -118,10 +118,7 @@ Test the TI drivers
 
 Test the camera driver
 
-    ln -s /home/root/v4l2_driver.ko /lib/modules/`uname -r`/v4l2_driver.ko
-    depmod -a
-    modprobe v4l2_driver # twice...?
-    gst-launch -v v4l2src num-buffers=100 ! video/x-raw-yuv,width=640,height=480,framerate=30/1 ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! video/x-raw-yuv,width=640,height=480,framerate=30/1 ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
 
 
 Qemu (optional)
