@@ -3,9 +3,7 @@ meta-ecam
 This is a layer that provides *ecam-console-image* with a modified Linux 3.2
 kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
-driver is not included and will have to be copied from the CD provided with the
-camera, but it should insert properly (hence the reason for the modified 3.2
-kernel).
+driver is will be built along with the 3.2 kernel.
 
 ----
 
@@ -15,10 +13,27 @@ should work though since it doesn't use systemd.
 
 ----
 
+Files
+-----
+Here is a summary of the changes made in the .bbappend files in this layer and
+the new files provided in it.
+
+| Files | Description
+|:------|:-----
+| *conf* | Example config files for 3.2 kernel with a few hacks like insane\_skip
+| *recipes-core/netbase* | Changes hostname to "gumstix"
+| *recipes-ecam/driver* | Provides the camera driver
+| *recipes-ecam/images* | Provides images including the TI and camera drivers
+| *recipes-kernel/linux* | Adds kernel modifications for camera
+| *recipes-support/opencv* | Fixes source URL for opencv
+| *recipes-ti/dvsdk* | An alternate [old] method of building TI drivers
+| *scripts/qemumkimg.sh* | Generate image files for use with Qemu
+
 Yocto Project
 -----
-Install Ubuntu in Virtualbox if you don't have it already. Ubuntu 12.04 or
-13.04 both work. Either 32-bit or 64-bit should work.
+To build the *ecam-console-image*, first install Ubuntu in Virtualbox if you
+don't have it already. Ubuntu 12.04 or 13.04 both work. Either 32-bit or 64-bit
+should work.
 
 Setup the */bin/sh* symlink. Select no.
 
@@ -52,8 +67,11 @@ TI DSP Drivers
 --------------
 Downloaded C6000 Code Generation Tools v7.2.7 from [Texas
 Instruments](https://www-a.ti.com/downloads/sds_support/TICodegenerationTools/download.htm)
-(requires a free account) and copy into the download folder. Run ``touch
-ti_cgt_c6000_7.2.7_setup_linux_x86.bin.done`` in the same directory.
+(requires a free account) and copy into the download folder. Then create the
+.done file in the same directory.
+
+    mv /.../ti_cgt_c6000_7.2.7_setup_linux_x86.bin ~/yocto/build/downloads/
+    touch ~/yocto/build/downloads/ti_cgt_c6000_7.2.7_setup_linux_x86.bin.done
 
 Build everything
 ----------------
