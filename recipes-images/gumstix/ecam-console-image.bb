@@ -27,7 +27,7 @@ memtester \
 nano \
 ntp \
 sudo \
-tar \zz
+tar \
 tslib \
 u-boot-mkimage \
 u-boot-fw-utils \
