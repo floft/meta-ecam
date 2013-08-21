@@ -5,18 +5,13 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://inc_header.h;beginline=1;endline=7;md5=b816030b90f9adc8249d6d5d15f9aaef"
 PR = "r1"
 
-SRC_URI = "http://roadnarrows.com/distro/e-con/e-CAM56_37x_GSTIX/Software/e-CAM56_37x_GSTIX_LINUX_REL_2.0.zip"
-SRC_URI[md5sum] = "4a4db65442b3473a1a360212eedb3a8d"
-SRC_URI[sha256sum] = "18b77bfda359ef8796226fad42cdc6e62dc27f9fef1533c130a99ef2408c8a89"
-
+SRC_URI = "http://roadnarrows.com/distro/e-con/e-CAM56_37x_GSTIX/Software/e-CAM56_37x_GSTIX_LINUX_REL_2.0.zip;name=source \
+    file://0001-Add-modules_install-target.patch;name=patch"
+SRC_URI[source.md5sum] = "4a4db65442b3473a1a360212eedb3a8d"
+SRC_URI[source.sha256sum] = "18b77bfda359ef8796226fad42cdc6e62dc27f9fef1533c130a99ef2408c8a89"
+SRC_URI[patch.md5sum] = "d5bd7a6e5826674909c3e90955631b26"
+SRC_URI[patch.sha256sum] = "44c489b80e8877027e49d2086501f1d18fdad3da62eb1bbf198a6b95943d1bd9"
 
 S = "${WORKDIR}/e-CAM56_37x_GSTIX_LINUX_REL_2.0/Driver/Source"
 
 inherit module
-
-MAKE_TARGETS = "omap"
-
-do_install() {
-    install -d "${D}/lib/modules/${KERNEL_VERSION}/drivers/camera"
-    install -m 644 v4l2_driver.ko "${D}/lib/modules/${KERNEL_VERSION}/drivers/camera"
-}
