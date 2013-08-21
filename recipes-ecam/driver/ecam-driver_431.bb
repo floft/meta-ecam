@@ -13,5 +13,3 @@ inherit module
 
 S = "${WORKDIR}/e-CAM56_37x_GSTIX_LINUX_REL_2.0/Driver/Source"
 MAKE_TARGETS = "omap"
-
-RPROVIDES_${PN} = "ecam-driver"
