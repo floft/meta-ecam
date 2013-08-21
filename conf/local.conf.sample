@@ -269,3 +269,9 @@ BBMASK ?= ".*/meta-ti/recipes-(misc|bsp/formfactor)/"
 #
 TOOLCHAIN_PATH ?= "${STAGING_DIR_NATIVE}${prefix_native}/bin/${TUNE_PKGARCH}${HOST_VENDOR}-${HOST_OS}"
 TOOLCHAIN_SYSPATH ?= "${TOOLCHAIN_PATH}/${TARGET_SYS}"
+
+#
+# A hack since this patch hasn't been added yet.
+#  https://lists.yoctoproject.org/pipermail/meta-ti/2013-January/001994.html
+#
+INSANE_SKIP_gstreamer-ti-dev = "staticdev"
