@@ -41,6 +41,9 @@ gstreamer-ti \
 gst-meta-video \
 gst-meta-audio \
 gst-meta-debug \
+opencv \
+opencv-dev \
+opencv-apps \
 "
 
 IMAGE_INSTALL += " \
