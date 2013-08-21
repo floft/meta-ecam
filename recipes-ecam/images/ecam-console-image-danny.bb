@@ -85,6 +85,7 @@ TOOLS_INSTALL = " \
  "
 
 ECAM_INSTALL = " \
+ecam-driver \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-good \

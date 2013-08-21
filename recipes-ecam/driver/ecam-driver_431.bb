@@ -15,3 +15,8 @@ SRC_URI[patch.sha256sum] = "14adaab961bcc06cca7689f71367ea78647155574411870e307e
 S = "${WORKDIR}/e-CAM56_37x_GSTIX_LINUX_REL_2.0/Driver/Source"
 
 inherit module
+
+do_install_append() {
+    install -d "${D}/etc/modules-load.d"
+    echo "v4l2_driver" > "${D}/etc/modules-load.d/v4l2_driver"
+}
