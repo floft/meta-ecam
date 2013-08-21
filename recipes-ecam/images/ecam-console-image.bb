@@ -1,5 +1,5 @@
 # Based on: https://github.com/gumstix/meta-gumstix-extras/blob/dylan/recipes-images/gumstix/gumstix-console-image.bb
-DESCRIPTION = "An image with e-CAM56 37x GSTIX and TI DSP drirvers"
+DESCRIPTION = "An image with e-CAM56 37x GSTIX and TI DSP drivers"
 LICENSE = "MIT"
 PR = "r0"
 
