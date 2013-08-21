@@ -72,4 +72,13 @@ set_gumstix_user() {
     chmod u+s "${IMAGE_ROOTFS}/usr/bin/sudo"
 }
 
-ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; "
+enable_services() {
+    install -d "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants"
+
+    ln -sf "/lib/systemd/system/ecam-driver.service" \
+        "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/ecam-driver.service"
+    ln -sf "/lib/systemd/system/gstti-init.service" \
+        "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/gstti-init.service"
+}
+
+ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; enable_services ; "
