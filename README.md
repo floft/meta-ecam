@@ -5,14 +5,6 @@ kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
 driver is will be built along with the 3.2 kernel.
 
-----
-
-**Warning:** it should build, but you'll run into issues with systemd at the
-moment when you boot. This is not fully working yet. The *pansenti-base* branch
-should work though since it doesn't use systemd.
-
-----
-
 Files
 -----
 Here is a summary of the changes made in the .bbappend files in this layer and
@@ -30,7 +22,7 @@ the new files provided in it.
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
 
 Yocto Project
------
+-------------
 To build the *ecam-console-image*, first install Ubuntu in Virtualbox if you
 don't have it already. Ubuntu 12.04 or 13.04 both work. Either 32-bit or 64-bit
 should work.
