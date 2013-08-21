@@ -19,6 +19,8 @@ inherit module
 do_install_append() {
     install -d "${D}/usr/share/ecam"
     install -d "${D}/lib/systemd/system"
+    install -d "${D}/etc/systemd/system/multi-user.target.wants"
+
     install -m 0755 "${WORKDIR}/load.sh" "${D}/usr/share/ecam/load.sh"
     install -m 0644 "${WORKDIR}/ecam-driver.service" "${D}/lib/systemd/system/ecam-driver.service"
 
