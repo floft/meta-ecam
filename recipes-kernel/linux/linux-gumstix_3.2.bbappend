@@ -21,5 +21,5 @@ SRC_URI[libertas.md5sum] = "93b0c112972c72b8880c0f5c08ebac8c"
 SRC_URI[libertas.sha256sum] = "cbd213d42808c9f226dd6740c20f666190c2d4330a89b837170fd5330f876019"
 
 # Should probably go in a machine config file, but it'll work here.
-MACHINE_EXTRA_RDEPENDS += "ecam-driver"
+MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "ecam-driver"
 module_autoload_ecam-driver = "v4l2_driver"
