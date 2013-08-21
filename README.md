@@ -1,14 +1,19 @@
 meta-ecam
 =========
-This is a layer that provides *econ-console-image* with a modified Linux 3.2
+This is a layer that provides *ecam-console-image* with a modified Linux 3.2
 kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
 driver is not included and will have to be copied from the CD provided with the
 camera, but it should insert properly (hence the reason for the modified 3.2
 kernel).
 
+----
+
 **Warning:** it should build, but you'll run into issues with systemd at the
-moment when you boot. This is not fully working yet.
+moment when you boot. This is not fully working yet. The *pansenti-base* branch
+should work though since it doesn't use systemd.
+
+----
 
 Yocto Project
 -----
@@ -138,7 +143,7 @@ Emulate the system, note that the keyboard and mouse probably won't work.
 Deploy
 ------
 In *~/yocto/build/tmp/deploy/images/* you should see some files like *MLO*,
-*u-boot.img*, *uImage*, *ecam-console-image-...tar.xz*, and *modules-...tgz*
+*u-boot.img*, *uImage*, *ecam-console-image-...tar.bz2*, and *modules-...tgz*
 (most of which will be symlinks). Create a fat32 boot partion on an SD card and
 copy *MLO*, *u-boot.img*, and *uImage* onto it. Extract the other two into a
 larger ext3 second partition. You can read the [Gumstix
