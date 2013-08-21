@@ -275,3 +275,9 @@ TOOLCHAIN_SYSPATH ?= "${TOOLCHAIN_PATH}/${TARGET_SYS}"
 #  https://lists.yoctoproject.org/pipermail/meta-ti/2013-January/001994.html
 #
 INSANE_SKIP_gstreamer-ti-dev = "staticdev"
+
+#
+# Automatically build the driver and load it on boot.
+#
+MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "ecam-driver"
+module_autoload_v4l2_driver = "v4l2_driver"
