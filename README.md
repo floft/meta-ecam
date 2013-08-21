@@ -32,7 +32,7 @@ Download recipes
     git clone git://github.com/Freescale/meta-fsl-arm.git
     git clone git://github.com/Freescale/meta-fsl-arm-extra.git
     git clone git://github.com/Pansenti/meta-pansenti
-    git clone git://github.com/floft/meta-ecam.git
+    git clone -b pansenti-base git://github.com/floft/meta-ecam.git
     git checkout 64273e5
     ( cd meta-openembedded; git checkout 13ae510 )
     ( cd meta-gumstix; git checkout 15d9cf4 )
