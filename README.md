@@ -11,7 +11,9 @@ kernel).
 **Note:** this branch is based on Pansenti, which uses sysvinit. This should
 work and will allow you to insert the camera driver provided with the camera.
 However, the master branch builds the driver which allows for using systemd and
-other kernel config modifications. Using the master is the preferred method.
+other kernel config modifications and uses meta-ti instead of a custom DVSDK
+build recipe resulting in a lot less space being required. Using the master is
+the preferred method.
 
 ---
 
