@@ -22,3 +22,5 @@ do_install_append() {
     install -m 0755 "${WORKDIR}/load.sh" "${D}/usr/share/ecam/load.sh"
     install -m 0644 "${WORKDIR}/ecam-driver.service" "${D}/lib/systemd/system/ecam-driver.service"
 }
+
+FILES_${PN} += "/lib/systemd/system/* /usr/share/ecam/*"
