@@ -6,6 +6,15 @@ driver is not included and will have to be copied from the CD provided with the
 camera, but it should insert properly (hence the reason for the modified 3.2
 kernel).
 
+---
+
+**Note:** this branch is based on Pansenti, which uses sysvinit. This should
+work and will allow you to insert the camera driver provided with the camera.
+However, the master branch builds the driver which allows for using systemd and
+other kernel config modifications. Using the master is the preferred method.
+
+---
+
 ## Yocto Project
 Install [Ubuntu 10.04 32-bit](http://releases.ubuntu.com/lucid/) in Virtualbox
 (see DVSDK section if you want a different version) and disable swap;
