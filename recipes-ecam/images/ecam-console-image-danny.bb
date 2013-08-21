@@ -86,6 +86,8 @@ TOOLS_INSTALL = " \
 
 ECAM_INSTALL = " \
 gstreamer-ti \
+gst-ffmpeg \
+gst-plugins-good \
 gst-meta-video \
 gst-meta-audio \
 gst-meta-debug \
