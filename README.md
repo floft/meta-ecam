@@ -7,6 +7,9 @@ driver is not included and will have to be copied from the CD provided with the
 camera, but it should insert properly (hence the reason for the modified 3.2
 kernel).
 
+**Warning:** it should build, but you'll run into issues with systemd at the
+moment when you boot. This is not fully working yet.
+
 Yocto Project
 -----
 Install Ubuntu in Virtualbox if you don't have it already. Ubuntu 12.04 or
@@ -135,7 +138,7 @@ Emulate the system, note that the keyboard and mouse probably won't work.
 Deploy
 ------
 In *~/yocto/build/tmp/deploy/images/* you should see some files like *MLO*,
-*u-boot.img*, *uImage*, *ecam-console-image-\*.tar.xz*, and *modules-\*.tgz*
+*u-boot.img*, *uImage*, *ecam-console-image-...tar.xz*, and *modules-...tgz*
 (most of which will be symlinks). Create a fat32 boot partion on an SD card and
 copy *MLO*, *u-boot.img*, and *uImage* onto it. Extract the other two into a
 larger ext3 second partition. You can read the [Gumstix
