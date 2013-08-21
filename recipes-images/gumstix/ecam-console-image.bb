@@ -27,7 +27,7 @@ memtester \
 nano \
 ntp \
 sudo \
-tar \
+tar \zz
 tslib \
 u-boot-mkimage \
 u-boot-fw-utils \
@@ -36,7 +36,7 @@ wget \
 zip \
 "
 
-ECAM_INSTALL += " \
+ECAM_INSTALL = " \
 gstreamer-ti \
 gst-meta-video \
 gst-meta-audio \

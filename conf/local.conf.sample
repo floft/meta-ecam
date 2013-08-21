@@ -12,6 +12,7 @@
 # variable as required.
 
 # Set a few Preferred Providers that aren't specified elsewhere
+PREFERRED_PROVIDER_u-boot = "u-boot"
 PREFERRED_PROVIDER_ntp = "ntp"
 PREFERRED_PROVIDER_udev = "systemd"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
@@ -261,3 +262,10 @@ LICENSE_FLAGS_WHITELIST += "commercial"
 #   http://www.sleepyrobot.com/?p=210
 #
 BBMASK ?= ".*/meta-ti/recipes-(misc|bsp/formfactor)/"
+
+#
+# For compiling dsplink. From:
+#   http://www.sleepyrobot.com/?p=210
+#
+TOOLCHAIN_PATH ?= "${STAGING_DIR_NATIVE}${prefix_native}/bin/${TUNE_PKGARCH}${HOST_VENDOR}-${HOST_OS}"
+TOOLCHAIN_SYSPATH ?= "${TOOLCHAIN_PATH}/${TARGET_SYS}"
