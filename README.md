@@ -87,16 +87,15 @@ U-Boot Environment
 ------------------
 Kernel arguments for use without the camera driver:
 
-    setenv optargs 'mem=99M@0x80000000 mem=397M@0x88000000'
+    setenv optargs 'mem=99M@0x80000000 mem=384M@0x88000000'
 
 For use with the camera driver:
 
-    setenv optargs 'mem=99M@0x80000000 mem=109M@0x88000000 mem=256M@0x90000000'
+    setenv optargs 'mem=99M@0x80000000 mem=96M@0x88000000 mem=256M@0x90000000'
 
 And, something like this including the ${optargs} if not already there
 
     setenv mmcargs 'setenv bootargs console=${console} ${optargs} mpurate=${mpurate} vram=${vram} omapfb.mode=dvi:${dvimode} omapdss.def_disp=${defaultdisplay} root=${mmcroot} rootfstype=${mmcrootfstype}'
-
 
 #### Memory Layout
 It works to leave the drivers in their default locations. Below is the memory
@@ -106,9 +105,13 @@ argument in */lib/systemd/system/gstti-init.service*.
 
     linux    99M@0x80000000 - 0x86300000 at 0M
     cmem     16M@0x86300000 - 0x87300000 at 99M
-    linux   109M@0x88000000 - 0x8e000000 at 115M
+    dsplink? 13M@0x87300000 - 0x88000000 at 115M
+    linux    96M@0x88000000 - 0x8e000000 at 128M
     camera   32M@0x8e000000 - 0x8fffffff at 224M
     linux   256M@0x90000000 - 0xa0000000 at 256M
+
+**TODO:** it would be a good idea to figure out where dsplink actually is from
+the code instead of just figuring out what doesn't cause immediate issues.
 
 Run Test
 --------
@@ -120,19 +123,36 @@ Test the camera driver
 
     gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! 'video/x-raw-yuv,width=640,height=480,framerate=5/1,format=(fourcc)UYVY' ! ffmpegcolorspace ! avimux ! filesink location=video.avi
 
-Test both the camera driver and the TI drivers together. Increase num-buffers
-to capture more frames or remove to continue until pressing Ctrl+C (use
-*gst-inspect* for the list of properties, e.g. ``gst-inspect v4l2src``).
+Test both the camera driver and the TI drivers together. Increase *num-buffers*
+to capture more frames or remove to continue capturing until pressing Ctrl+C
+(use *gst-inspect* for the list of properties, e.g. ``gst-inspect v4l2src``).
 
     gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,framerate=25/1,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer resolution=640x480 framerate=25 ! avimux ! filesink location=video.avi
 
 ### Troubleshooting
 It may not work. Here's some things that might have gone wrong.
 
+#### Backtrace from *ioremap.c*
+The below backtrace is caused by trying to [remap normal memory to device
+memory](http://www.serverphorums.com/read.php?12,396674,396744#msg-396744). You
+probably need to adjust your *mem=* kernel parameters near *dsplinkk* or
+*v4l2_driver* depending on which you see in the trace.
+
+    [   37.909973] ------------[ cut here ]------------
+    [   37.915008] WARNING: at arch/arm/mm/ioremap.c:207 __arm_ioremap_pfn_caller+0xd4/0xf8()
+    [   37.924682] Modules linked in: sdmak(O) lpm_omap3530(O) dsplinkk(O) v4l2_driver(O) cmemk(O) libertas_sdio libertas lib80211 cfg80211
+    ...
+    [   38.022552] [<bf0c8b68>] (OMAP3530_init+0xa8/0x1f4 [dsplinkk]) from [<bf0c80b4>] (DSP_init+0x24/0x2c [dsplinkk])
+    ...
+    [   38.093627] [<c01054e0>] (sys_ioctl+0x6c/0x7c) from [<c0013440>] (ret_fast_syscall+0x0/0x3c)
+    [   38.103790] ---[ end trace 805171ff509f69cd ]---
+
 #### Empty Video file
 If in ``dmesg | tail`` you get "Device or resource busy," the camera probably
 isn't quite connected. Verify it's connected, and then reload *v4l2_driver* or
-run
+run the following. You may get printk output that makes it look like this
+command is still running. It's not. It's a more-or-less instantaneous command.
+Press return.
 
     systemctl restart ecam-driver
 
@@ -141,7 +161,11 @@ If you start getting weird coloring, you probably ran something like this.
 
     gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
 
-This works fine, but if you then use *TIVidenc1* after this, you might get this weird coloring. As in the example in the above section, you can specify *format=(fourcc)UYVY* and then run it through *ffmpegcolorspace* before *avimux* and then you shouldn't run into this problem. The "fix" for this is to ``reboot``.
+This works fine, but if you then use *TIVidenc1* after this, you might get this
+weird coloring. As in the example in the above section, you can specify
+*format=(fourcc)UYVY* and then run it through *ffmpegcolorspace* before
+*avimux* and then you shouldn't run into this problem. The "fix" for this is to
+``reboot``.
 
 Qemu (optional)
 ---------------
