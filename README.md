@@ -18,7 +18,6 @@ the new files provided in it.
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-kernel/linux* | Adds kernel modifications for camera
 | *recipes-support/opencv* | Fixes source URL for opencv
-| *recipes-ti/dvsdk* | An alternate [old] method of building TI drivers
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
 
 Yocto Project
