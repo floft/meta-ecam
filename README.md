@@ -22,9 +22,11 @@ the new files provided in it.
 
 Yocto Project
 -------------
-To build the *ecam-console-image*, first install Ubuntu in Virtualbox if you
-don't have it already. Ubuntu 12.04 or 13.04 both work. Either 32-bit or 64-bit
-should work.
+To build the *ecam-console-image*, you can either setup Yocto like outlined
+below or you can just add *meta-ecam* as a layer and make a few changes to
+*conf/local.conf*. If you don't have Yocto setup yet, first install Ubuntu in
+Virtualbox if you don't have it already. Ubuntu 12.04 or 13.04 both work.
+Either 32-bit or 64-bit should work.
 
 Setup the */bin/sh* symlink. Select no.
 
@@ -72,7 +74,7 @@ e-CAM56 37x GSTIX driver.
     bitbake ecam-console-image
 
 You'll probably get some warning messages from meta-ti. If you're on 64-bit,
-make sure you have ia32-libs, but it'll still warn if you have it. And then,
+make sure you have *ia32-libs*, but it'll still warn if you have it. And then,
 there will be a few license warnings and QA issues.
 
     WARNING: TI installer requires 32bit glibc libraries for proper operation
@@ -81,6 +83,19 @@ there will be a few license warnings and QA issues.
     WARNING: QA Issue: ti-cgt6x: Files/directories were installed but not shipped
     WARNING: The recipe is trying to install files into a shared area when those files already exist. Those files are:
     ...
+
+Deploy
+------
+In *~/yocto/build/tmp/deploy/images/* you should see some files like *MLO*,
+*u-boot.img*, *uImage*, *ecam-console-image-...tar.bz2*, and *modules-...tgz*
+(most of which will be symlinks). Create a fat32 boot partion on an SD card and
+copy *MLO*, *u-boot.img*, and *uImage* onto it. Extract the other two into a
+larger ext3 second partition. You can read the [Gumstix
+documentation](http://gumstix.org/create-a-bootable-microsd-card.html) for more
+in-depth information. You may want to reset the bootloader environment (bottom
+of linked page) to the defaults in the newly compiled one. Or, if the
+bootloader doesn't even load, you can try [a precompiled Gumstix
+one](http://cumulus.gumstix.org/images/angstrom/factory/2011-08-30-1058/u-boot.bin).
 
 U-Boot Environment
 ------------------
@@ -166,47 +181,7 @@ weird coloring. As in the example in the above section, you can specify
 *avimux* and then you shouldn't run into this problem. The "fix" for this is to
 ``reboot``.
 
-Qemu (optional)
----------------
-Build Qemu for ARM if you want to test the image before putting it on an SD card.
-
-    sudo apt-get install libtool libpixman-1-0 libpixman-1-dev
-    git clone git://git.linaro.org/qemu/qemu-linaro.git
-    cd qemu-linaro
-    git submodule update --init dtc
-    ./configure --target-list=arm-softmmu
-    make -j4
-    sudo make install
-
-Create image
-
-    chmod +x ~/yocto/poky/meta-ecam/scripts/qemumkimg.sh
-    pushd tmp/deploy/images
-    sudo ~/yocto/poky/meta-ecam/scripts/qemumkimg.sh sd.img MLO u-boot.img uImage ecam-console-image-*.tar.bz2 $(ls modules*.tgz | tail -n 1)
-
-Set yourself as the owner since you don't want to run qemu as root.
-
-    sudo chown $(id -nu):$(id -nu) sd.img
-
-Emulate the system, note that the keyboard and mouse probably won't work.
-
-    /usr/local/bin/qemu-system-arm -M overo -m 512 -sd sd.img -clock unix -serial stdio -device usb-mouse -device usb-kbd
-
-Deploy
-------
-In *~/yocto/build/tmp/deploy/images/* you should see some files like *MLO*,
-*u-boot.img*, *uImage*, *ecam-console-image-...tar.bz2*, and *modules-...tgz*
-(most of which will be symlinks). Create a fat32 boot partion on an SD card and
-copy *MLO*, *u-boot.img*, and *uImage* onto it. Extract the other two into a
-larger ext3 second partition. You can read the [Gumstix
-documentation](http://gumstix.org/create-a-bootable-microsd-card.html) for more
-in-depth information. You may want to reset the bootloader environment (bottom
-of linked page) to the defaults in the newly compiled one. Or, if the
-bootloader doesn't even load, you can try [a precompiled Gumstix
-one](http://cumulus.gumstix.org/images/angstrom/factory/2011-08-30-1058/u-boot.bin).
-
 Resources
 ---------
-[Gumstix Emulation for QEMU](http://wiki.gumstix.org/index.php?title=Gumstix_Emulation_for_QEMU)  
 [Using the DSP on Gumstix with Yocto](http://www.sleepyrobot.com/?p=210)  
 [Gumstix Repo Manifests for the Yocto Project](https://github.com/gumstix/Gumstix-YoctoProject-Repo)
