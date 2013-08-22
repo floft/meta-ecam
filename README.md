@@ -140,7 +140,7 @@ Create image
 
     chmod +x ~/yocto/poky/meta-ecam/scripts/qemumkimg.sh
     pushd tmp/deploy/images
-    sudo ~/yocto/poky/meta-ecam/scripts/qemumkimg.sh sd.img MLO u-boot.img uImage ecam-console-image-overo.tar.xz $(ls modules*.tgz | tail -n 1)
+    sudo ~/yocto/poky/meta-ecam/scripts/qemumkimg.sh sd.img MLO u-boot.img uImage ecam-console-image-*.tar.bz2 $(ls modules*.tgz | tail -n 1)
 
 Set yourself as the owner since you don't want to run qemu as root.
 
