@@ -36,9 +36,3 @@ not present
 Build the custom image
 
     bitbake ecam-console-image
-
-Currently the TI drivers aren't working, but if booted into, the camera should
-be functional. Note that this command will print many errors, but since it
-doesn't actually use the TI driver, it outputs the video correctly.
-
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
