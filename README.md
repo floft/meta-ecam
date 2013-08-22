@@ -114,12 +114,19 @@ Run Test
 --------
 Test the TI drivers
 
-    gst-launch videotestsrc num-buffers=100 ! 'video/x-raw-yuv,width=1280,height=720,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer ! filesink location=sample.264
+    gst-launch videotestsrc num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer ! filesink location=sample.264
+
+Transcode the above *sample.264* file to something that you can watch in VLC. This will probably will have to be done on your host machine.
+
+    ffmpeg -i sample.264 -qscale 0 sample.avi
 
 Test the camera driver
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! video/x-raw-yuv,width=640,height=480,framerate=30/1 ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
 
+Test both the camera driver and the TI drivers together
+
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! video/x-raw-yuv,width=640,height=480,framerate=30/1 ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
 
 Qemu (optional)
 ---------------
