@@ -114,15 +114,34 @@ Run Test
 --------
 Test the TI drivers
 
-    gst-launch videotestsrc num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
+    gst-launch -v videotestsrc num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
 
 Test the camera driver
 
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! 'video/x-raw-yuv,width=640,height=480,framerate=5/1,format=(fourcc)UYVY' ! ffmpegcolorspace ! avimux ! filesink location=video.avi
+
+Test both the camera driver and the TI drivers together. Increase num-buffers
+to capture more frames or remove to continue until pressing Ctrl+C (use
+*gst-inspect* for the list of properties, e.g. ``gst-inspect v4l2src``).
+
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,framerate=25/1,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer resolution=640x480 framerate=25 ! avimux ! filesink location=video.avi
+
+### Troubleshooting
+It may not work. Here's some things that might have gone wrong.
+
+#### Empty Video file
+If in ``dmesg | tail`` you get "Device or resource busy," the camera probably
+isn't quite connected. Verify it's connected, and then reload *v4l2_driver* or
+run
+
+    systemctl restart ecam-driver
+
+#### Weird Colors
+If you start getting weird coloring, you probably ran something like this.
+
     gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
 
-Test both the camera driver and the TI drivers together
-
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! video/x-raw-yuv,width=640,height=480,framerate=30/1 ! TIVidenc1 codecName=h264enc engineName=codecServer ! avimux ! filesink location=video.avi
+This works fine, but if you then use *TIVidenc1* after this, you might get this weird coloring. As in the example in the above section, you can specify *format=(fourcc)UYVY* and then run it through *ffmpegcolorspace* before *avimux* and then you shouldn't run into this problem. The "fix" for this is to ``reboot``.
 
 Qemu (optional)
 ---------------
