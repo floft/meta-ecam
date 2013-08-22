@@ -61,6 +61,7 @@ ${ECAM_INSTALL} \
 
 set_gumstix_user() {
     echo "gumstix:x:500:" >> "${IMAGE_ROOTFS}/etc/group"
+    # Password is "overo"
     echo "gumstix:VQ43An5F8LYqc:500:500:Gumstix User,,,:/home/gumstix:/bin/bash"  >> "${IMAGE_ROOTFS}/etc/passwd"
 
     install -d "${IMAGE_ROOTFS}/home/gumstix"
