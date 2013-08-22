@@ -81,4 +81,41 @@ enable_services() {
         "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/gstti-init.service"
 }
 
-ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; enable_services ; "
+create_rcS() {
+    install -d "${IMAGE_ROOTFS}/etc/default"
+
+    cat <<EOF > "${IMAGE_ROOTFS}/etc/default/rcS"
+#
+#	Defaults for the boot scripts in /etc/rcS.d. While this is for
+#	sysvint, many services fail when this file does not exist.
+#
+
+# Time files in /tmp are kept in days.
+TMPTIME=0
+# Set to yes if you want sulogin to be spawned on bootup
+SULOGIN=no
+# Set to no if you want to be able to login over telnet/rlogin
+# before system startup is complete (as soon as inetd is started)
+DELAYLOGIN=no
+# Assume that the BIOS clock is set to UTC time (recommended)
+UTC=yes
+# Set VERBOSE to "no" if you would like a more quiet bootup.
+VERBOSE=no
+# Set EDITMOTD to "no" if you don't want /etc/motd to be edited automatically
+EDITMOTD=no
+# Whether to fsck root on boot
+ENABLE_ROOTFS_FSCK=no
+# Set FSCKFIX to "yes" if you want to add "-y" to the fsck at startup.
+FSCKFIX=yes
+# Set TICKADJ to the correct tick value for this specific machine
+#TICKADJ=10000
+# Enable caching in populate-volatile.sh
+VOLATILE_ENABLE_CACHE=yes
+# Indicate whether the rootfs is intended to be read-only or not.
+# Setting ROOTFS_READ_ONLY to yes and rebooting will give you a read-only rootfs.
+# Normally you should not change this value.
+ROOTFS_READ_ONLY=no
+EOF
+}
+
+ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; enable_services ; create_rcS ; "
