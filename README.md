@@ -17,9 +17,10 @@ the new files provided in it.
 | *recipes-ecam/driver* | Provides the camera driver
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-kernel/linux* | Adds kernel modifications for camera
-| *recipes-support/opencv* | Provide OpenCV 2.4.3 from dylan branch
+| *recipes-multimedia/gstreamer* | Patch for [unexpected frame size](https://bugzilla.gnome.org/show_bug.cgi?id=649067) going from high to low resolution
+| *recipes-support/opencv* | Provide OpenCV 2.4.3 from [dylan branch](https://github.com/openembedded/meta-oe/tree/2a87eb149c329662af2a257a4b437dbabf5d2851/meta-oe/recipes-support/opencv)
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
-| *recipes-ti* | Patch TIImgenc1 for multiple images
+| *recipes-ti* | Patch TIImgenc1 for [multiple images](http://e2e.ti.com/support/dsp/omap_applications_processors/f/447/t/138400.aspx)
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
 
 Yocto Project
