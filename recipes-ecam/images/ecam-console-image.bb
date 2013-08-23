@@ -36,12 +36,23 @@ wget \
 zip \
 "
 
+# List of [interesting] gst-plugins-good-* PACKAGES_DYNAMIC:
+#   find ~/yocto/build/tmp/work/*/gst-plugins-good-*/packages-split/ -maxdepth 1 -type d | \
+#      grep -Ev -- "-(dev|locale)" | sed 's#.*/##' | sort
+
 ECAM_INSTALL = " \
 ecam-driver \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-good \
+gst-plugins-good-avi \
+gst-plugins-good-avi-dev \
 gst-plugins-good-jpeg \
+gst-plugins-good-jpeg-dev \
+gst-plugins-good-multifile \
+gst-plugins-good-multifile-dev \
+gst-plugins-good-multipart \
+gst-plugins-good-multipart-dev \
 gst-plugins-good-video4linux2 \
 gst-plugins-good-video4linux2-dev \
 gst-meta-video \
