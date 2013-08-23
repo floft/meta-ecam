@@ -17,7 +17,7 @@ the new files provided in it.
 | *recipes-ecam/driver* | Provides the camera driver
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-kernel/linux* | Adds kernel modifications for camera
-| *recipes-support/opencv* | Fixes source URL for opencv
+| *recipes-support/opencv* | Provide OpenCV 2.4.3 from dylan branch
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
 | *recipes-ti* | Patch TIImgenc1 for multiple images
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
