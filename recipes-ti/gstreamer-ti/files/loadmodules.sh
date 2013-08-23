@@ -1,6 +1,8 @@
 #!/bin/sh
 #
 # CMEM Allocation
+#    2x20155392           2 full-res 2592x1944 in TIImgenc1 numOutputBufs
+#    1x9775965            Allow qValue=97 in TIImgenc1
 #    1x5250000            Circular buffer
 #    6x829440,1x691200    Video buffers (max D1 PAL)
 #    1x345600             Underlying software components (codecs, etc.)
