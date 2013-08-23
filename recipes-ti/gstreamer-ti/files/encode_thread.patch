@@ -6,7 +6,7 @@ diff -ru a/ti_build/ticodecplugin/src/gsttiimgenc1.c b/ti_build/ticodecplugin/sr
                       imgenc1->dynParams.inputChromaFormat); 
  
 +	/* re-set of params because we lost them */
-+	imgenc1->hIe = Ienc1_process(imgenc1->hIe, &imgenc1->dynParams);
++	imgenc1->hIe = Ienc1_control(imgenc1->hIe, &imgenc1->dynParams);
 +
          /* Invoke the image encoder */
          GST_LOG("invoking the image encoder\n");
