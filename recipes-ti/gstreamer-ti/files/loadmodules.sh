@@ -14,7 +14,7 @@ rmmod cmemk 2>/dev/null
 
 # Modified to work with full-res images:
 modprobe cmemk allowOverlap=1 phys_start=0x83700000 phys_end=0x87300000 \
-            pools=2x20155392,1x7558872,1x5250000,6x829440,1x345600,1x691200,1x1
+            pools=2x20155392,1x9775965,1x5250000,6x829440,1x345600,1x691200,1x1
 
 # insert DSP/BIOS Link driver
 modprobe dsplinkk
