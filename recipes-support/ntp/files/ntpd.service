@@ -1,0 +1,9 @@
+[Unit]
+Description=Network Time Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ntpd -g -n
+
+[Install]
+WantedBy=multi-user.target

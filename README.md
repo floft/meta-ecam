@@ -18,7 +18,7 @@ the new files provided in it.
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-kernel/linux* | Adds kernel modifications for camera
 | *recipes-support/opencv* | Fixes source URL for opencv
-| *recipes-support/ntp* | Changes servers used for NTP
+| *recipes-support/ntp* | Change servers and allow large first offset for NTP
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
 
 Yocto Project
