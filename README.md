@@ -19,6 +19,7 @@ the new files provided in it.
 | *recipes-kernel/linux* | Adds kernel modifications for camera
 | *recipes-support/opencv* | Fixes source URL for opencv
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
+| *recipes-ti* | Patch TIImgenc1 for multiple images
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
 
 Yocto Project

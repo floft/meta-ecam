@@ -1,0 +1,13 @@
+diff -ru a/ti_build/ticodecplugin/src/gsttiimgenc1.c b/ti_build/ticodecplugin/src/gsttiimgenc1.c
+--- a/src/gsttiimgenc1.c	2013-08-06 09:05:43.000000000 -0700
++++ b/src/gsttiimgenc1.c	2013-08-23 09:28:14.278872438 -0700
+@@ -1690,6 +1690,9 @@
+         BufferGfx_setColorSpace(imgenc1->hInBuf,
+                      imgenc1->dynParams.inputChromaFormat); 
+ 
++	/* re-set of params because we lost them */
++	imgenc1->hIe = Ienc1_process(imgenc1->hIe, &imgenc1->dynParams);
++
+         /* Invoke the image encoder */
+         GST_LOG("invoking the image encoder\n");
+         ret             = Ienc1_process(imgenc1->hIe, imgenc1->hInBuf, hDstBuf);
