@@ -1,0 +1,9 @@
+[Unit]
+Description=TI Gstreamer plugins init
+
+[Service]
+ExecStart=/usr/share/ti/gst/omap3530/loadmodules.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

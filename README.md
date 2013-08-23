@@ -103,11 +103,11 @@ U-Boot Environment
 ------------------
 Kernel arguments for use without the camera driver:
 
-    setenv optargs 'mem=99M@0x80000000 mem=384M@0x88000000'
+    setenv optargs 'mem=55M@0x80000000 mem=384M@0x88000000'
 
 For use with the camera driver:
 
-    setenv optargs 'mem=99M@0x80000000 mem=96M@0x88000000 mem=256M@0x90000000'
+    setenv optargs 'mem=55M@0x80000000 mem=96M@0x88000000 mem=256M@0x90000000'
 
 And, something like this including the ${optargs} if not already there
 
@@ -116,11 +116,10 @@ And, something like this including the ${optargs} if not already there
 #### Memory Layout
 It works to leave the drivers in their default locations. Below is the memory
 layout used above for a 512 MiB Gumstix. If you want to change the cmem memory
-locations, modify */usr/share/ti/gst/omap3530/loadmodules.sh* and the kernel
-argument in */lib/systemd/system/gstti-init.service*.
+locations, modify */usr/share/ti/gst/omap3530/loadmodules.sh*.
 
-    linux    99M@0x80000000 - 0x86300000 at 0M
-    cmem     16M@0x86300000 - 0x87300000 at 99M
+    linux    55M@0x80000000 - 0x83700000 at 0M
+    cmem     60M@0x83700000 - 0x87300000 at 55M
     dsplink? 13M@0x87300000 - 0x88000000 at 115M
     linux    96M@0x88000000 - 0x8e000000 at 128M
     camera   32M@0x8e000000 - 0x8fffffff at 224M
