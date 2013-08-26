@@ -44,6 +44,8 @@ ECAM_INSTALL = " \
 ecam-driver \
 gstreamer-ti \
 gst-ffmpeg \
+gst-plugins-base-app \
+gst-plugins-base-app-dev \
 gst-plugins-good \
 gst-plugins-good-avi \
 gst-plugins-good-avi-dev \
