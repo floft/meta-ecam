@@ -144,6 +144,10 @@ to capture more frames or remove to continue capturing until pressing Ctrl+C
 
     gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,framerate=25/1,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer resolution=640x480 framerate=25 ! avimux ! filesink location=video.avi
 
+Testing full-resolution image capture with the TI driver
+
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=120 ! video/x-raw-yuv,width=2592,height=1944 ! TIImgenc1 engineName=codecServer codecName=jpegenc iColorSpace=UYVY oColorSpace=YUV420P qValue=75 numOutputBufs=2 resolution=2592x1944 ! multifilesink location=image-%05d.jpg
+
 ### Troubleshooting
 It may not work. Here's some things that might have gone wrong.
 
@@ -181,6 +185,21 @@ weird coloring. As in the example in the above section, you can specify
 *format=(fourcc)UYVY* and then run it through *ffmpegcolorspace* before
 *avimux* and then you shouldn't run into this problem. The "fix" for this is to
 ``reboot``.
+
+#### Got unexpected frame size
+You may see errors like the following after trying to switch from
+full-resolution images back to low-resolution video.
+
+    WARNING: from element /GstPipeline:pipeline0/GstV4l2Src:v4l2src0: Got unexpected frame size of 10077696 instead of 614400.
+    Additional debug info:
+    gstv4l2src.c(919): gst_v4l2src_get_mmap (): /GstPipeline:pipeline0/GstV4l2Src:v4l2src0
+    WARNING: from element /GstPipeline:pipeline0/GstV4l2Src:v4l2src0: Got unexpected frame size of 10077696 instead of 614400.
+    Additional debug info:
+    ...
+
+A workaround for this is just reloading the camera driver or rebooting.
+
+    systemctl restart ecam-driver
 
 Resources
 ---------
