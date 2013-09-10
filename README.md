@@ -201,6 +201,22 @@ A workaround for this is just reloading the camera driver or rebooting.
 
     systemctl restart ecam-driver
 
+#### Tee with two sinks hangs
+It appears that *tee* with multiple sinks hangs when capturing individual frames.
+For example, the following does not hang:
+
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink
+
+However, the following will hang:
+
+    gst-launch -v v4l2src device=/dev/video2 num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink t. ! fakesink
+
+And, likewise anything going from *TIImgenc1* to *tee* with *multifilesink* and
+*appsink* will hang. However, using *TIVidenc1* to *tee* with *filesink* and
+*appsink* does not hang. This [may be an
+issue](http://e2e.ti.com/support/dsp/omap_applications_processors/f/447/p/138400/776655.aspx#776655)
+with the TI drivers.
+
 Resources
 ---------
 [Using the DSP on Gumstix with Yocto](http://www.sleepyrobot.com/?p=210)  
