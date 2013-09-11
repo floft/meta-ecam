@@ -19,6 +19,7 @@ TOOLS_INSTALL = " \
 alsa-utils \
 systemd-analyze \
 cpufrequtils \
+gdbserver \
 grep \
 gzip \
 iputils \
@@ -26,6 +27,8 @@ iw \
 memtester \
 nano \
 ntp \
+openssh-sftp \
+openssh-sftp-server \
 sudo \
 tar \
 tslib \
