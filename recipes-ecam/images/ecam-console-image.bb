@@ -45,6 +45,7 @@ zip \
 
 ECAM_INSTALL = " \
 ecam-driver \
+usb-networking \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-base-app \
