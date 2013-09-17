@@ -5,6 +5,11 @@ kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
 driver is will be built along with the 3.2 kernel.
 
+You'll probably want to modify this layer (and the
+[manifest](https://raw.github.com/floft/manifest/master/yocto-ecam.xml)) to
+better suit your needs, but hopefully this will be a good starting point for
+working with this camera.
+
 Files
 -----
 Here is a summary of the changes made in the .bbappend files in this layer and
@@ -14,10 +19,11 @@ the new files provided in it.
 |:------|:-----
 | *conf* | Example config files for 3.2 kernel with a few hacks like insane\_skip
 | *recipes-core/netbase* | Changes hostname to "gumstix"
+| *recipes-core/usb-networking* | Automatically setup 10.3.14.15 static IP on USB OTG port
 | *recipes-ecam/driver* | Provides the camera driver
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-kernel/linux* | Adds kernel modifications for camera
-| *recipes-support/opencv* | Provide OpenCV 2.4.3 from [dylan branch](https://github.com/openembedded/meta-oe/tree/2a87eb149c329662af2a257a4b437dbabf5d2851/meta-oe/recipes-support/opencv)
+| *recipes-support/opencv* | Provide OpenCV 2.4.3 from [dylan branch](https://github.com/openembedded/meta-oe/tree/2a87eb149c329662af2a257a4b437dbabf5d2851/meta-oe/recipes-support/opencv) with UYVY grayscale patch
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
 | *recipes-ti* | Patch TIImgenc1 for [multiple images](http://e2e.ti.com/support/dsp/omap_applications_processors/f/447/t/138400.aspx)
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
