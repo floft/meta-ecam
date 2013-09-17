@@ -1,12 +1,13 @@
 DESCRIPTION = "Autostart USB Networking on OTG port"
-HOMEPAGE = ""
+HOMEPAGE = "http://jumpnowtek.com/index.php?option=com_content&view=article&id=53&Itemid=65"
 SECTION = "networking"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d41d8cd98f00b204e9800998ecf8427e"
 PR = "r1"
 
 SRC_URI = "file://usb-networking.service \
-           file://usb-networking.sh"
+           file://usb-networking.sh \
+           file://LICENSE"
 
 S = "${WORKDIR}"
 
