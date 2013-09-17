@@ -98,6 +98,8 @@ enable_services() {
         "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/ecam-driver.service"
     ln -sf "/lib/systemd/system/gstti-init.service" \
         "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/gstti-init.service"
+    ln -sf "/lib/systemd/system/usb-networking.service" \
+        "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/usb-networking.service"
 }
 
 create_rcS() {
