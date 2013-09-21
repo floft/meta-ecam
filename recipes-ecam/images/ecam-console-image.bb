@@ -37,6 +37,14 @@ u-boot-fw-utils \
 vim \
 wget \
 zip \
+media-ctl \
+yavta \
+v4l-utils \
+mtd-utils-ubifs \
+coreutils \
+diffutils \
+findutils \
+less \
 "
 
 # List of [interesting] gst-plugins-good-* PACKAGES_DYNAMIC:
@@ -44,8 +52,10 @@ zip \
 #      grep -Ev -- "-(dev|locale)" | sed 's#.*/##' | sort
 
 ECAM_INSTALL = " \
+xauth \
+xserver-xorg \
 ecam-driver \
-usb-networking \
+ecam-services \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-base-app \
@@ -77,6 +87,10 @@ ${TOOLS_INSTALL} \
 ${ECAM_INSTALL} \
 "
 
+add_custom_smart_config() {
+    smart --data-dir=${IMAGE_ROOTFS}/var/lib/smart channel --add gumstix type=rpm-md name="Gumstix Package Repository" baseurl=http://package-cache.s3-website-us-west-2.amazonaws.com/dev/ -y
+}
+
 set_gumstix_user() {
     echo "gumstix:x:500:" >> "${IMAGE_ROOTFS}/etc/group"
     # Password is "overo"
@@ -100,6 +114,14 @@ enable_services() {
         "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/gstti-init.service"
     ln -sf "/lib/systemd/system/usb-networking.service" \
         "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/usb-networking.service"
+
+    # First unmask it
+    rm -f "${IMAGE_ROOTFS}/etc/systemd/system/networking.service"
+    ln -sf "/lib/systemd/system/networking.service" \
+        "${IMAGE_ROOTFS}/etc/systemd/system/multi-user.target.wants/networking.service"
+
+    # Enable Xorg forwarding with ssh
+    sed -i 's/#X11Forwarding no/X11Forwarding yes/' "${IMAGE_ROOTFS}/etc/ssh/sshd_config"
 }
 
 create_rcS() {
@@ -139,4 +161,4 @@ ROOTFS_READ_ONLY=no
 EOF
 }
 
-ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; enable_services ; create_rcS ; "
+ROOTFS_POSTPROCESS_COMMAND =+ "set_gumstix_user ; add_custom_smart_config ; enable_services ; create_rcS ; "

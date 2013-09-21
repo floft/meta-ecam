@@ -1,12 +1,12 @@
 meta-ecam
 =========
-This is a layer that provides *ecam-console-image* with a modified Linux 3.2
+This is a layer that provides *ecam-console-image* with a modified Linux 3.5.7
 kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
-driver is will be built along with the 3.2 kernel.
+driver is will be built along with the 3.5.7 kernel.
 
 You'll probably want to modify this layer (and the
-[manifest](https://raw.github.com/floft/manifest/master/yocto-ecam.xml)) to
+[manifest](https://raw.github.com/floft/manifest/master/yocto-ecam-dylan.xml)) to
 better suit your needs, but hopefully this will be a good starting point for
 working with this camera.
 
@@ -17,13 +17,13 @@ the new files provided in it.
 
 | Files | Description
 |:------|:-----
-| *conf* | Example config files for 3.2 kernel with a few hacks like insane\_skip
-| *recipes-core/netbase* | Changes hostname to "gumstix"
-| *recipes-core/usb-networking* | Automatically setup 10.3.14.15 static IP on USB OTG port
+| *conf* | Example config files for 3.5.7 kernel with a few hacks like insane\_skip
+| *recipes-core/init-ifupdown* | Changes hostname to "gumstix"
 | *recipes-ecam/driver* | Provides the camera driver
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
+| *recipes-ecam/services* | 10.3.14.15 static IP on USB OTG port, DHCP on eth0
 | *recipes-kernel/linux* | Adds kernel modifications for camera
-| *recipes-support/opencv* | Provide OpenCV 2.4.3 from [dylan branch](https://github.com/openembedded/meta-oe/tree/2a87eb149c329662af2a257a4b437dbabf5d2851/meta-oe/recipes-support/opencv) with UYVY grayscale patch
+| *recipes-support/opencv* | Apply UYVY grayscale patch
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
 | *recipes-ti* | Patch TIImgenc1 for [multiple images](http://e2e.ti.com/support/dsp/omap_applications_processors/f/447/t/138400.aspx)
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
@@ -54,7 +54,7 @@ Download Yocto Project files
     chmod a+x ~/repo
     mkdir ~/yocto
     cd ~/yocto
-    ~/repo init -u git://github.com/floft/manifest -m yocto-ecam.xml
+    ~/repo init -u git://github.com/floft/meta-ecam -b dylan
     ~/repo sync
 
 Initialize build directory. You'll have to source this every time you want to
@@ -81,16 +81,7 @@ e-CAM56 37x GSTIX driver.
 
     bitbake ecam-console-image
 
-You'll probably get some warning messages from meta-ti. If you're on 64-bit,
-make sure you have *ia32-libs*, but it'll still warn if you have it. And then,
-there will be a few license warnings and QA issues.
-
-    WARNING: TI installer requires 32bit glibc libraries for proper operation
-    run 'yum install glibc.i686' on Fedora or 'apt-get install ia32-libs' on Ubuntu/Debian
-    WARNING: ti-cgt6x: No generic license file exists for: TI in any provider
-    WARNING: QA Issue: ti-cgt6x: Files/directories were installed but not shipped
-    WARNING: The recipe is trying to install files into a shared area when those files already exist. Those files are:
-    ...
+Note that you'll probably get lots of warnings.
 
 Deploy
 ------
@@ -142,17 +133,17 @@ Test the TI drivers
 
 Test the camera driver
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! 'video/x-raw-yuv,width=640,height=480,framerate=5/1,format=(fourcc)UYVY' ! ffmpegcolorspace ! avimux ! filesink location=video.avi
+    gst-launch -v v4l2src num-buffers=10 ! 'video/x-raw-yuv,width=640,height=480,framerate=5/1,format=(fourcc)UYVY' ! ffmpegcolorspace ! avimux ! filesink location=video.avi
 
 Test both the camera driver and the TI drivers together. Increase *num-buffers*
 to capture more frames or remove to continue capturing until pressing Ctrl+C
 (use *gst-inspect* for the list of properties, e.g. ``gst-inspect v4l2src``).
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,framerate=25/1,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer resolution=640x480 framerate=25 ! avimux ! filesink location=video.avi
+    gst-launch -v v4l2src num-buffers=100 ! 'video/x-raw-yuv,width=640,height=480,framerate=25/1,format=(fourcc)UYVY' ! TIVidenc1 codecName=h264enc engineName=codecServer resolution=640x480 framerate=25 ! avimux ! filesink location=video.avi
 
 Testing full-resolution image capture with the TI driver
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=120 ! video/x-raw-yuv,width=2592,height=1944 ! TIImgenc1 engineName=codecServer codecName=jpegenc iColorSpace=UYVY oColorSpace=YUV420P qValue=75 numOutputBufs=2 resolution=2592x1944 ! multifilesink location=image-%05d.jpg
+    gst-launch -v v4l2src num-buffers=120 ! video/x-raw-yuv,width=2592,height=1944 ! TIImgenc1 engineName=codecServer codecName=jpegenc iColorSpace=UYVY oColorSpace=YUV420P qValue=75 numOutputBufs=2 resolution=2592x1944 ! multifilesink location=image-%05d.jpg
 
 ### Troubleshooting
 It may not work. Here's some things that might have gone wrong.
@@ -184,7 +175,7 @@ Press return.
 #### Weird Colors
 If you start getting weird coloring, you probably ran something like this.
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
+    gst-launch -v v4l2src num-buffers=10 ! video/x-raw-yuv,width=640,height=480,framerate=5/1 ! avimux ! filesink location=video.avi
 
 This works fine, but if you then use *TIVidenc1* after this, you might get this
 weird coloring. As in the example in the above section, you can specify
@@ -211,11 +202,11 @@ A workaround for this is just reloading the camera driver or rebooting.
 It appears that *tee* with multiple sinks hangs when capturing individual frames.
 For example, the following does not hang:
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink
+    gst-launch -v v4l2src num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink
 
 However, the following will hang:
 
-    gst-launch -v v4l2src device=/dev/video2 num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink t. ! fakesink
+    gst-launch -v v4l2src num-buffers=1 ! video/x-raw-yuv,width=640,height=480 ! jpegenc ! tee name=t ! fakesink t. ! fakesink
 
 And, likewise anything going from *TIImgenc1* to *tee* with *multifilesink* and
 *appsink* will hang. However, using *TIVidenc1* to *tee* with *filesink* and

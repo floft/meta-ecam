@@ -12,11 +12,8 @@
 # variable as required.
 
 # Set a few Preferred Providers that aren't specified elsewhere
-PREFERRED_PROVIDER_u-boot = "u-boot"
-PREFERRED_PROVIDER_ntp = "ntp"
-PREFERRED_PROVIDER_udev = "systemd"
-PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
-PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+PREFERRED_PROVIDER_jpeg = "jpeg"
+PREFERRED_PROVIDER_jpeg-native = "jpeg-native"
 
 # Use Gumstix source mirror as default premirror
 SOURCE_MIRROR_URL ?= "http://source-cache.gumstix.org/"
@@ -68,7 +65,7 @@ MACHINE ?= "overo"
 # Uncomment the following PREFERRED_VERSION line only if there is some reason
 # you need to run the 3.2 kernel on the Overo instead of the default 3.5.
 # Linux 3.2 is required for the pre-built camera driver from e-consystems.
-PREFERRED_VERSION_linux-gumstix = "3.2"
+PREFERRED_VERSION_linux-gumstix = "3.5.7"
 
 #
 # Where to place downloads
