@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <remote name="yocto" fetch="git://git.yoctoproject.org" />
+    <remote name="oe" fetch="git://github.com/openembedded" />
+    <remote name="gumstix" fetch="git://github.com/gumstix" />
+    <remote name="floft" fetch="git://github.com/floft" />
+
+    <default sync-j="4" />
+
+    <!-- "name": git repository's name on hosting server
+    "remote": the remote host from above (if not the default)
+    "revision": commitish to checkout (if not the default)
+    "path": directory where git repository gets cloned/synced -->
+    <project name="meta-gumstix" remote="gumstix" path="poky/meta-gumstix" revision="e373f9c91ba7e3719676bfdd3f8f9c87a7b3284c" upstream="refs/heads/danny" />
+    <project name="meta-gumstix-extras" remote="gumstix" path="poky/meta-gumstix-extras" revision="2a8423ae62f44183c52dac6e119c8581d26f6fce" upstream="refs/heads/danny" />
+    <project name="meta-oe" remote="oe" path="poky/meta-openembedded" revision="34e5537e67b655b8d2effbbecc207d88eea52b87" upstream="refs/heads/danny" />
+    <project name="poky" remote="yocto" revision="2806646a263527ec0487ea160afd4bdc0a3c1703" upstream="refs/heads/danny" />
+    <project name="meta-ti" remote="yocto" path="poky/meta-ti" revision="f2afcfee588adb594bc46a36d4e4443adb1be64f" upstream="refs/heads/danny" />
+    <project name="meta-ecam" remote="floft" path="poky/meta-ecam" revision="refs/heads/master" />
+</manifest>

@@ -54,7 +54,7 @@ Download Yocto Project files
     chmod a+x ~/repo
     mkdir ~/yocto
     cd ~/yocto
-    ~/repo init -u git://github.com/floft/manifest -m yocto-ecam.xml
+    ~/repo init -u git://github.com/floft/meta-ecam
     ~/repo sync
 
 Initialize build directory. You'll have to source this every time you want to
