@@ -5,10 +5,9 @@ kernel and includes the TI DSP drivers for use with the [e-CAM56 37x
 GSTIX](http://www.e-consystems.com/5MP-Gumstix-Camera.asp) camera. The camera
 driver is will be built along with the 3.5.7 kernel.
 
-You'll probably want to modify this layer (and the
-[manifest](https://raw.github.com/floft/manifest/master/yocto-ecam-dylan.xml)) to
-better suit your needs, but hopefully this will be a good starting point for
-working with this camera.
+You'll probably want to modify this layer and the manifest to better suit your
+needs, but hopefully this will be a good starting point for working with this
+camera.
 
 Files
 -----
