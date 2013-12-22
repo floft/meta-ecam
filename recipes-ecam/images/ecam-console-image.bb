@@ -56,6 +56,7 @@ xauth \
 xserver-xorg \
 ecam-driver \
 ecam-services \
+libgles-omap3 \
 gstreamer-ti \
 gst-ffmpeg \
 gst-plugins-base-app \
