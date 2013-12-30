@@ -1,0 +1,32 @@
+diff -ru Graphics_SDK_4_09_00_01/GFX_Linux_SDK/OGLES/SDKPackage/Builds/OGLES/LinuxARMV7/make_platform.mak Graphics_SDK_4_09_00_01.new/GFX_Linux_SDK/OGLES/SDKPackage/Builds/OGLES/LinuxARMV7/make_platform.mak
+--- Graphics_SDK_4_09_00_01/GFX_Linux_SDK/OGLES/SDKPackage/Builds/OGLES/LinuxARMV7/make_platform.mak	2013-12-29 16:44:22.464499215 -0800
++++ Graphics_SDK_4_09_00_01.new/GFX_Linux_SDK/OGLES/SDKPackage/Builds/OGLES/LinuxARMV7/make_platform.mak	2013-12-29 16:42:12.470133466 -0800
+@@ -9,9 +9,9 @@
+ CROSS_COMPILE ?= arm-poky-linux-gnueabi-
+ 
+ ifdef TOOLCHAIN
+-PLAT_CC  = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)gcc
+-PLAT_CPP = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)g++
+-PLAT_AR  = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)ar
++PLAT_CC  = $(TOOLCHAIN)/$(CROSS_COMPILE)gcc
++PLAT_CPP = $(TOOLCHAIN)/$(CROSS_COMPILE)g++
++PLAT_AR  = $(TOOLCHAIN)/$(CROSS_COMPILE)ar
+ else
+ PLAT_CC  = $(CROSS_COMPILE)gcc
+ PLAT_CPP = $(CROSS_COMPILE)g++
+diff -ru Graphics_SDK_4_09_00_01/GFX_Linux_SDK/OGLES2/SDKPackage/Builds/OGLES2/LinuxARMV7/make_platform.mak Graphics_SDK_4_09_00_01.new/GFX_Linux_SDK/OGLES2/SDKPackage/Builds/OGLES2/LinuxARMV7/make_platform.mak
+--- Graphics_SDK_4_09_00_01/GFX_Linux_SDK/OGLES2/SDKPackage/Builds/OGLES2/LinuxARMV7/make_platform.mak	2013-12-29 16:40:13.135633703 -0800
++++ Graphics_SDK_4_09_00_01.new/GFX_Linux_SDK/OGLES2/SDKPackage/Builds/OGLES2/LinuxARMV7/make_platform.mak	2013-12-29 16:45:09.819903877 -0800
+@@ -9,9 +9,9 @@
+ CROSS_COMPILE ?= arm-poky-linux-gnueabi-
+ 
+ ifdef TOOLCHAIN
+-PLAT_CC  = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)gcc
+-PLAT_CPP = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)g++
+-PLAT_AR  = $(TOOLCHAIN)/bin/$(CROSS_COMPILE)ar
++PLAT_CC  = $(TOOLCHAIN)/$(CROSS_COMPILE)gcc
++PLAT_CPP = $(TOOLCHAIN)/$(CROSS_COMPILE)g++
++PLAT_AR  = $(TOOLCHAIN)/$(CROSS_COMPILE)ar
+ else
+ PLAT_CC  = $(CROSS_COMPILE)gcc
+ PLAT_CPP = $(CROSS_COMPILE)g++
