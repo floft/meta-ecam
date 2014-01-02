@@ -57,7 +57,13 @@ xserver-xorg \
 ecam-driver \
 ecam-services \
 libgles-omap3 \
+libgles-omap3-dev \
+libgles-omap3-dbg \
 libgles-omap3-es5 \
+libgles1-mesa \
+libgles1-mesa-dev \
+libgles2-mesa \
+libgles2-mesa-dev \
 omap3-sgx-modules \
 gstreamer-ti \
 gst-ffmpeg \
