@@ -12,10 +12,10 @@
     "remote": the remote host from above (if not the default)
     "revision": commitish to checkout (if not the default)
     "path": directory where git repository gets cloned/synced -->
-    <project name="meta-gumstix" remote="gumstix" path="poky/meta-gumstix" revision="8cc8bd0f7eff1267bccf535e470728121e769178" upstream="refs/heads/dylan" />
-    <project name="meta-gumstix-extras" remote="gumstix" path="poky/meta-gumstix-extras" revision="3d6606da1ef3c91bba65d2cf4371e558885c7d01" upstream="refs/heads/dylan" />
-    <project name="meta-oe" remote="oe" path="poky/meta-openembedded" revision="81bf02c1ed858b8a7ae9297b8eab7d9355d0a48c" upstream="refs/heads/dylan" />
-    <project name="poky" remote="yocto" revision="560fa9ad8dd46f23cff7a2e88a3492c363314b29" upstream="refs/heads/dylan" />
+    <project name="meta-gumstix" remote="gumstix" path="poky/meta-gumstix" revision="f10408773c2e81cc520c5a022c8bbe232a7b26aa" upstream="refs/heads/dylan" />
+    <project name="meta-gumstix-extras" remote="gumstix" path="poky/meta-gumstix-extras" revision="2b249710f1441841f326e9e8ab6fb2a217e84b73" upstream="refs/heads/dylan" />
+    <project name="meta-oe" remote="oe" path="poky/meta-openembedded" revision="237daf836a700d55c95c095a90d249d1fa37b389" upstream="refs/heads/dylan" />
+    <project name="poky" remote="yocto" revision="c0456385ce606ca649922705721534a188dde4e0" upstream="refs/heads/dylan" />
     <project name="meta-ti" remote="pabigot" path="poky/meta-ti" revision="0035ba0812d2c6aebe8e08127269891c7429677d" upstream="refs/heads/not-for-pull/dylan" />
     <project name="meta-ecam" remote="floft" path="poky/meta-ecam" revision="refs/heads/dylan" />
 </manifest>

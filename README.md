@@ -22,7 +22,7 @@ the new files provided in it.
 | *recipes-ecam/images* | Provides images including the TI and camera drivers
 | *recipes-ecam/services* | 10.3.14.15 static IP on USB OTG port, DHCP on eth0
 | *recipes-kernel/linux* | Adds kernel modifications for camera
-| *recipes-support/opencv* | Apply UYVY grayscale patch
+| *recipes-support/opencv* | Apply UYVY grayscale patch (You may want to remove this)
 | *recipes-support/ntp* | Change servers and allow large first offset for NTP
 | *recipes-ti* | Patch TIImgenc1 for [multiple images](http://e2e.ti.com/support/dsp/omap_applications_processors/f/447/t/138400.aspx), PowerVR fixes
 | *scripts/qemumkimg.sh* | Generate image files for use with Qemu
@@ -32,8 +32,9 @@ Yocto Project
 To build the *ecam-console-image*, you can either setup Yocto like outlined
 below or you can just add *meta-ecam* as a layer and make a few changes to
 *conf/local.conf*. If you don't have Yocto setup yet, first install Ubuntu in
-Virtualbox if you don't have it already. Ubuntu 12.04 or 13.04 both work.
-Either 32-bit or 64-bit should work.
+Virtualbox if you don't have it already. Ubuntu 12.04, 13.04, and 14.04 and
+either 32-bit or 64-bit have worked in the past. However, the current version
+of this has only been tested on Ubuntu 14.04 64-bit.
 
 Setup the */bin/sh* symlink. Select no.
 
@@ -70,6 +71,7 @@ Instruments](https://www-a.ti.com/downloads/sds_support/TICodegenerationTools/do
 (requires a free account) and copy into the download folder. Then create the
 .done file in the same directory.
 
+    mkdir -p ~/yocto/build/downloads/
     mv /.../ti_cgt_c6000_7.2.7_setup_linux_x86.bin ~/yocto/build/downloads/
     touch ~/yocto/build/downloads/ti_cgt_c6000_7.2.7_setup_linux_x86.bin.done
 
@@ -80,7 +82,9 @@ e-CAM56 37x GSTIX driver.
 
     bitbake ecam-console-image
 
-Note that you'll probably get lots of warnings.
+Note that you'll probably get lots of warnings. If you get errors, you can
+[open an issue](https://github.com/floft/meta-ecam/issues). I may have time to
+look into it.
 
 Deploy
 ------
