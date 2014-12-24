@@ -50,7 +50,7 @@ If you're on a 64-bit system
 
 Download Yocto Project files
 
-    curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo > ~/repo
+    curl https://storage.googleapis.com/git-repo-downloads/repo > ~/repo
     chmod a+x ~/repo
     mkdir ~/yocto
     cd ~/yocto
